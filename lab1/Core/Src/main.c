@@ -31,6 +31,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define RED_DURATION 	7
+#define YELLOW_DURATION 2
+#define GREEN_DURATION 	5
 
 /* USER CODE END PD */
 
@@ -50,7 +53,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 void resetLed(void);
-enum LED_STATE {LED_RED, LED_YELLOW, LED_GREEN};
+enum TRAFFIC_STATE {PHASE1, PHASE2};
 
 /* USER CODE END PFP */
 
@@ -88,7 +91,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  enum LED_STATE ledState = LED_RED;
+  enum TRAFFIC_STATE trafficState = PHASE1;
 
   /* USER CODE END 2 */
 
@@ -99,39 +102,44 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		switch(ledState){
-		case LED_RED:{
-			resetLed();
-			HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
-			HAL_Delay(5000);
+	  switch(trafficState){
+	  case PHASE1:{
+		  trafficState = PHASE2;
+		  resetLed();
 
-			ledState = LED_GREEN;
-			break;
-		}
-		case LED_GREEN:{
-			resetLed();
-			HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, RESET);
-			HAL_Delay(3000);
+		  HAL_GPIO_WritePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin, SET);
+		  HAL_GPIO_WritePin(LED_GREEN_2_GPIO_Port, LED_GREEN_2_Pin, SET);
+		  HAL_Delay(5000);
 
-			ledState = LED_YELLOW;
-			break;
-		}
-		case LED_YELLOW:{
-			resetLed();
-			HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, RESET);
-			HAL_Delay(2000);
+		  HAL_GPIO_WritePin(LED_GREEN_2_GPIO_Port, LED_GREEN_2_Pin, RESET);
+		  HAL_GPIO_WritePin(LED_YELLOW_2_GPIO_Port, LED_YELLOW_2_Pin, SET);
+		  HAL_Delay(2000);
+		  break;
+	  }
+	  case PHASE2:{
+		  trafficState = PHASE1;
+		  resetLed();
 
-			ledState = LED_RED;
-			break;
-		}
-		default:{
-			break;
-		}
+		  HAL_GPIO_WritePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin, SET);
+		  HAL_GPIO_WritePin(LED_GREEN_1_GPIO_Port, LED_GREEN_1_Pin, SET);
+		  HAL_Delay(5000);
+
+		  HAL_GPIO_WritePin(LED_GREEN_1_GPIO_Port, LED_GREEN_1_Pin, RESET);
+		  HAL_GPIO_WritePin(LED_YELLOW_1_GPIO_Port, LED_YELLOW_1_Pin, SET);
+		  HAL_Delay(2000);
+
+		  break;
+	  }
+	  default:{
+		  break;
+	  }
+
 	}
+  }
 
   /* USER CODE END 3 */
-  }
 }
+
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -183,10 +191,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_GREEN_1_Pin|LED_RED_1_Pin|LED_YELLOW_1_Pin|LED_GREEN_2_Pin
+                          |LED_RED_2_Pin|LED_YELLOW_2_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin;
+  /*Configure GPIO pins : LED_GREEN_1_Pin LED_RED_1_Pin LED_YELLOW_1_Pin LED_GREEN_2_Pin
+                           LED_RED_2_Pin LED_YELLOW_2_Pin */
+  GPIO_InitStruct.Pin = LED_GREEN_1_Pin|LED_RED_1_Pin|LED_YELLOW_1_Pin|LED_GREEN_2_Pin
+                          |LED_RED_2_Pin|LED_YELLOW_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -198,9 +209,12 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void resetLed(void){
-	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
-	HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
-	HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);
+	HAL_GPIO_WritePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin, RESET);
+	HAL_GPIO_WritePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin, RESET);
+	HAL_GPIO_WritePin(LED_YELLOW_1_GPIO_Port, LED_YELLOW_1_Pin, RESET);
+	HAL_GPIO_WritePin(LED_YELLOW_2_GPIO_Port, LED_YELLOW_2_Pin, RESET);
+	HAL_GPIO_WritePin(LED_GREEN_1_GPIO_Port, LED_GREEN_1_Pin, RESET);
+	HAL_GPIO_WritePin(LED_GREEN_2_GPIO_Port, LED_GREEN_2_Pin, RESET);
 }
 
 /* USER CODE END 4 */
