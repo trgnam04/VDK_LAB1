@@ -1,4 +1,0 @@
-../Core/Src/exercise9_lab1.c:11:6:init_exercise9	16	static
-../Core/Src/exercise9_lab1.c:30:6:clearAllClock	16	static
-../Core/Src/exercise9_lab1.c:47:6:setNumberOnClock	24	static
-../Core/Src/exercise9_lab1.c:90:13:clearNumberOnClock	24	static

@@ -1,0 +1,6 @@
+../Core/Src/exercise10_lab1.c:24:6:init_clock	3
+../Core/Src/exercise10_lab1.c:34:6:init_exercise10	2
+../Core/Src/exercise10_lab1.c:53:6:clearAllClock	1
+../Core/Src/exercise10_lab1.c:70:6:setNumberOnClock	13
+../Core/Src/exercise10_lab1.c:113:13:clearNumberOnClock	13
+../Core/Src/exercise10_lab1.c:155:6:run_exercise10	7

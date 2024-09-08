@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "exercise9_lab1.h"
+#include "exercise10_lab1.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -86,8 +86,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  init_exercise9();
-  uint8_t counter = 0;
+  init_exercise10();
+  init_clock(20, 11);
+
 
   /* USER CODE END 2 */
 
@@ -99,10 +100,8 @@ int main(void)
 
 
     /* USER CODE BEGIN 3 */
-	  counter = (counter + 1) % 12;
-	  setNumberOnClock(counter);
+	  run_exercise10();
 	  HAL_Delay(1000);
-	  clearNumberOnClock(counter);
   }
   /* USER CODE END 3 */
 }
