@@ -1,0 +1,3 @@
+../Core/Src/exercise8_lab1.c:11:6:init_exercise8	16	static
+../Core/Src/exercise8_lab1.c:30:6:clearAllClock	16	static
+../Core/Src/exercise8_lab1.c:47:6:setNumberOnClock	24	static
