@@ -1,0 +1,4 @@
+../Core/Src/exercise9_lab1.c:11:6:init_exercise9	2
+../Core/Src/exercise9_lab1.c:30:6:clearAllClock	1
+../Core/Src/exercise9_lab1.c:47:6:setNumberOnClock	13
+../Core/Src/exercise9_lab1.c:90:13:clearNumberOnClock	13
