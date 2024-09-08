@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "exercise6_lab1.h"
+#include "exercise7_lab1.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -86,7 +86,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  init_exercise6();
+  init_exercise7();
 
   /* USER CODE END 2 */
 
@@ -97,8 +97,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  run_exercise6();
-	  HAL_Delay(1000);
+	  HAL_Delay(2000);
+	  clearAllClock();
   }
   /* USER CODE END 3 */
 }
